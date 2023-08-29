@@ -11,44 +11,94 @@ The objective of VLSI (Very Large Scale Integration) physical design for ASICs (
 + Routing
 
 # INSTALLATION
+<details>
+<summary> Riscv_toolchain Installation </summary>	
+	
 https://github.com/kunalg123/riscv_workshop_collaterals/blob/master/run.sh
+
 + Download the run.sh
 + Open terminal
 + cd Downloads
 + ./run.sh
++ If permission denied, then
+   - `chmod +x run.sh`
+   - `./run.sh`
++ If error in configure,
+  
+  <img width="432" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/cab4ecd6-5228-43e6-9181-0a025e5bc655">
+  
+     - `cd`
+     - `cd riscv_toolchain/iverilog `
+     - `./configure `
+     - ` make`
+     - `sudo make install`
+       
++ To check if riscv-gcc compiler is in the path,
+     - `gedit ~/.bashrc `
+     -  insert this in the bash file if not present:
+       
+           `export PATH=~/riscv_toolchain/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin:$PATH `
+
+   ### End of installation
+</details>
+
+<details>
+<summary> Yosys with GTKwave Installation </summary>
+	
++ `cd`
++ `git clone https://github.com/YosysHQ/yosys.git`
++ `cd yosys`
++ `sudo apt install make`
++ `sudo apt-get update`
++ `sudo apt-get install build-essential clang bison flex  libreadline-dev gawk tcl-dev libffi-dev git  graphviz xdot pkg-config python3 libboost-system-dev libboost-python-dev libboost-filesystem-dev zlib1g-dev`
++ `make config-gcc`
++ `make`
++ `sudo make install`
++ `sudo apt install gtkwave`
++ Type `yosys`
+  
+  <img width="358" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/e2ef73dd-d9b5-4f6c-9db5-d1e89c7fa88a">
+  
+  If received as shown above, installation is successful.
+
+    ### End of installation
+</details>
+
   
 # TABLE OF CONTENTS
 ## DAY 1 
 **Introduction to RISCV ISA and GNU Compiler Toolchain**
-+ Introduction to Basic Keywords
-  - [Introduction](#introduction)
-  - [From Apps to Hardware](#from-apps-to-hardware)
-  - [Detail Description of Course Content](#detail-description-of-course-content)
-
-+ Labwork for RISCV Toolchain
-  - [C Program](#c-program)
-  - [RISCV GCC Compiler and Dissemble](#riscv-gcc-compiler-and-dissemble)
-  - [Spike Simulation and Debug](#spike-simulation-and-debug)
-
-+ Integer Number Representation  
-  - [64-bit Unsigned Numbers](#64-bit-unsigned-numbers)
-  - [64-bit Signed Numbers](#64-bit-signed-numbers)
-  - [Labwork For Signed and Unsigned Numbers](#labwork-for-signed-and-unsigned-numbers)
++ [Introduction to Basic Keywords](#introduction-to-basic-keywords)
+  - Introduction
+  - From Apps to Hardware
+  - Detail Description of Course Content
++ [Labwork for RISCV Toolchain](#labwork-for-riscv-toolchain)
+  - C Program
+  - RISCV GCC Compiler and Dissemble
+  - Spike Simulation and Debug
++ [Integer Number Representation](#integer-number-representation) 
+  - 64-bit Unsigned Numbers
+  - 64-bit Signed Numbers
+  - Labwork For Signed and Unsigned Numbers
 
 ## DAY 2 
 **Introduction to ABI and Basic Verification Flow**
-+ Application Binary Interface
-  - [Introduction to ABI](#introduction-to-abi)
-  - [Memory Allocation for Double Words](#memory-allocation-for-double-words)
-  - [Load, Add and Store Instructions](#load,-add-and-store-instructions)
-  - [32-Registers and their ABI Names](#32-registers-and-their-abi-names)
++ [Application Binary Interface](#application-binary-interface)
+  - Introduction to ABI
+  - Memory Allocation for Double Words
+  - Load, Add and Store Instructions
+  - 32-Registers and their ABI Names
++ [Labwork using ABI Function Calls](#labwork-using-abi-function-calls)
+  - Algorithm for C Program using ASM
+  - Review ASM Function Calls
+  - Simulate C Program using Function Call
+  - Lab to Run C-Program On RISCV-CPU
 
-+ Labwork using ABI Function Calls
-  - [Algorithm for C Program using ASM](#algorithm-for-c-program-using-asm)
-  - [Review ASM Function Calls](#review-asm-function-calls)
-  - [Simulate C Program using Function Call](#simulate-c-program-using-function-call)
+# Day-1
 # Introduction to Basic Keywords
-## Introduction
+<details>
+<summary> Introduction </summary>
+	
 - **ISA (Instruction Set Archhitecture)**
   - ISA defines the interface between a computer's hardware and its software, specifically how the processor and its components interact with the software instructions that drive the execution of tasks.
   - It encompasses a set of instructions, addressing modes, data types, registers, memory organization, and the mechanisms for executing and managing instructions.
@@ -58,6 +108,11 @@ https://github.com/kunalg123/riscv_workshop_collaterals/blob/master/run.sh
   - RISC architectures simplify the instruction set by focusing on a smaller set of instructions, each of which can be executed in a single clock cycle. This approach usually leads to faster execution of individual instructions. 
 
 <img width="536" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/4eabe0b7-4581-419b-88e7-84c7ac1dac8e">
+
+</details>
+
+<details>
+<summary> From Apps to Hardware </summary>
 
 ## From Apps to Hardware
 1. **Apps:** Application software, often referred to simply as "applications" or "apps," is a type of computer software that is designed to perform specific tasks or functions for end-users.
@@ -72,7 +127,11 @@ https://github.com/kunalg123/riscv_workshop_collaterals/blob/master/run.sh
 
  7. **Hardware:** Hardware refers to the physical components of a computer system or any electronic device. It encompasses all the tangible parts that make up a computing or electronic device and enable it to perform various tasks.
 
-## Detail Description of Course Content
+</details>
+
+<details>
+<summary> Detail Description of Course Content </summary>
+
 **Pseudo Instructions:** Pseudo-instructions are used to simplify programming, improve code readability, and reduce the number of explicit instructions a programmer needs to write. They are especially useful for common programming patterns that involve multiple instructions.
 `Ex: li, mv`.
 
@@ -88,11 +147,17 @@ https://github.com/kunalg123/riscv_workshop_collaterals/blob/master/run.sh
 
 **Memory Allocation and Stack Pointer** 
 - Memory allocation refers to the process of assigning and managing memory segments for various data structures, variables, and objects used by a program. It involves allocating memory space from the system's memory pool and releasing it when it is no longer needed to prevent memory leaks.
-- The stack pointer is a register used by a program to keep track of the current position of the program's execution on the call stack. 
+- The stack pointer is a register used by a program to keep track of the current position of the program's execution on the call stack.
+  
+</details>
 
-# Labwork for RISCV Toolchain
-## C Program
-We wrote a C program for calculating the sum from 1 to n using a text editor, leafpad.
+## Labwork for RISCV Toolchain
+
+
+<details>
+<summary> C Program </summary>
+	
++ We wrote a C program for calculating the sum from 1 to n using a text editor, leafpad.
 
 `leafpad sumton.c`
 ``` c
@@ -117,24 +182,24 @@ Using the gcc compiler, we compiled the program to get the output.
 
 ## RISCV GCC Compiler and Dissemble
 
-Using the riscv gcc compiler, we compiled the C program.
++ Using the riscv gcc compiler, we compiled the C program.
 
 `riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c`
 
-Using `ls -ltr sum1ton.c`, we can check that the object file is created.
++ Using `ls -ltr sum1ton.c`, we can check that the object file is created.
 
-To get the dissembled ALP code for the C program, 
++ To get the dissembled ALP code for the C program, 
 
 `riscv64-unknown-elf-objdump -d sum1ton.o | less` .
 
-In order to view the main section, type 
++ In order to view the main section, type 
 `/main`.
 
-Here, since we used -O1 optimisation, the number of instructions are 15.
++ Here, since we used -O1 optimisation, the number of instructions are 15.
 
 <img width="453" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/98843b92-0beb-4bfc-ba4b-1dac5c93ed3c">
 
-When we use -Ofast optimisation, we can see that the number of instructions have been reduced to 12.
++ When we use -Ofast optimisation, we can see that the number of instructions have been reduced to 12.
 
 <img width="422" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/3eb7afcd-0645-4340-bcac-ae2dc3258ce3">
 
@@ -142,7 +207,7 @@ When we use -Ofast optimisation, we can see that the number of instructions have
 - -mabi : specifies the ABI (Application Binary Interface) to be used during code generation according to the requirements
 - -march : specifies target architecture
 
-In order to view the different options available for these fields, use the following commands
++ In order to view the different options available for these fields, use the following commands
 
 go to the directory where riscv64-unkonwn-elf is present
 
@@ -150,27 +215,24 @@ go to the directory where riscv64-unkonwn-elf is present
 - -mabi : ```riscv64-unknown-elf-gcc --target-help```
 - -march : ```riscv64-unknown-elf-gcc --target-help```
 
-For different instances,
-- use the command ```riscv64-unknown-elf-objdump -d 1_to_N.o | less```
-- use ``` /instance``` to search for an instance 
-- press ENTER
-- press ```n``` to search next occurance
-- press ```N``` to search for previous occurance. 
-- use ```esc :q``` to quit
++ To quit:
+  - use ```esc :q``` to quit
 
+</details>
 
-## Spike Simulation and Debug
+<details>
+<summary> Spike Simulation and Debug </summary>
 
-`spike pk sum1ton.o` is used to check whether the instructions produced are right to give the correct output.
++ `spike pk sum1ton.o` is used to check whether the instructions produced are right to give the correct output.
 
 
 ![Screenshot from 2023-08-20 20-00-48](https://github.com/Syedhasan7/pes_asic_class/assets/109273742/add29022-f332-400b-abe5-961c1a23461f)
 
 
 
-`spike -d pk sum1ton.c` is used for debugging.
++  `spike -d pk sum1ton.c` is used for debugging.
 
-The contents of the registers can also be viewed.
++  The contents of the registers can also be viewed.
 
 
 ![Screenshot from 2023-08-20 20-10-09](https://github.com/Syedhasan7/pes_asic_class/assets/109273742/1916b1a9-c271-4edc-a1c9-28105541a64b)
@@ -181,20 +243,32 @@ The contents of the registers can also be viewed.
 - reg 0 a2 : to check content of register a2 0th core
 - q : to quit the debug process
 
-# Integer Number Representation 
+</details>
 
-## Unsigned Numbers
+## Integer Number Representation 
+
+<details>
+<summary> Unsigned Numbers </summary>
+
 - Unsigned numbers, also known as non-negative numbers, are numerical values that represent magnitudes without indicating direction or sign.
 - Range: [0, (2^n)-1 ]
 
-## Signed Numbers
-- Signed numbers are numerical values that can represent both positive and negative magnitudes, along with zero.
-- Range : Positive : [0 , 2^(n-1)-1]
-          Negative : [-1 to 2^(n-1)]
- 
-## Labwork
+</details>
 
-We wrote a C program that shows the maximum and minimum values of 64bit unsigned numbers.
+<details>
+<summary> Signed Numbers </summary>
+
+- Signed numbers are numerical values that can represent both positive and negative magnitudes, along with zero.
+- Range :
+   - Positive : [0 , 2^(n-1)-1]
+   - Negative : [-1 to 2^(n-1)]
+ 
+</details>
+
+<details>
+<summary> Labwork </summary>
+
++ We wrote a C program that shows the maximum and minimum values of 64bit unsigned numbers.
 
 ``` c
 #include <stdio.h>
@@ -212,7 +286,7 @@ int main(){
 
 
 
-We wrote a C program that shows the maximum and minimum values of 64bit signed numbers.
++ We wrote a C program that shows the maximum and minimum values of 64bit signed numbers.
 ``` c
 #include <stdio.h>
 #include <math.h>
@@ -228,11 +302,22 @@ int main(){
 ![Screenshot from 2023-08-20 20-21-33](https://github.com/Syedhasan7/pes_asic_class/assets/109273742/9b2a40e6-f636-4db8-b6ff-a720e6a14082)
 
 
-# Application Binary Interface
-## Introduction to ABI
+</details>
+
+# Day-2
+## Application Binary Interface
+
+<details>
+<summary> Introduction to ABI </summary>
+
 + An Application Binary Interface (ABI) is a set of rules and conventions that dictate how binary code interacts with and communicates with other binary code, typically at the level of machine code or compiled code. In simpler terms, it defines the interface between two software components or systems that are written in different programming languages, compiled by different compilers, or running on different hardware architectures.
 + The ABI is crucial for enabling interoperability between different software components, such as different libraries, object files, or even entire programs. It allows components compiled independently and potentially on different platforms to work seamlessly together by adhering to a common set of rules for communication and data representation.
-## Memmory Allocation for Double Words
+
+</details>
+
+<details>
+<summary> Memory Allocation for Double Words </summary>
+
 64-bit number (or any multi-byte value) can be loaded into memory in little-endian or big-endian. It involves understanding the byte order and arranging the bytes accordingly
 1. **Little-Endian:**
 In little-endian representation, you store the least significant byte (LSB) at the lowest memory address and the most significant byte (MSB) at the highest memory address.
@@ -248,7 +333,10 @@ In Big-Endian representation, it would be stored as follows in memory:
 
 <img width="454" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/3954540e-800f-4503-97ef-6c77daacd058">
 
-## Load, Add and Store Instructions
+</details>
+
+<details>
+<summary> Load, Add and Store instructions </summary>
 Load, Add, and Store instructions are fundamental operations in computer architecture and assembly programming. They are often used to manipulate data within a computer's memory and registers.
 1. **Load Instructions:**
 Load instructions are used to transfer data from memory to registers. They allow you to fetch data from a specified memory address and place it into a register for further processing.
@@ -277,20 +365,32 @@ In this Example
 - `add` is the add instruction.
 - `x9` is the destination register.
 - `x10` and `x11` are the source registers.
-## 32-Registers and their ABI Names
+- </details>
+
+<details>
+<summary> 32-Registers and their ABI Names </summary>
 The choice of the number of registers in a processor's architecture, such as the RISC-V RV64 architecture with its 32 general-purpose registers, involves a trade-off between various factors. While modern processors can have more registers but increasing the number of registers could lead to larger instructions, which would take up more memory and potentially slow down instruction fetch and decode.
 #### ABI Names
 ABI names for registers serve as a standardized way to designate the purpose and usage of specific registers within a software ecosystem. These names play a critical role in maintaining compatibility, optimizing code generation, and facilitating communication between different software components. 
 
 <img width="430" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/3b7aed64-37cd-492f-b9b5-cd840103566a">
 
-# Labwork using ABI Function Calls
-## Algorithm for C Program using ASM
+</details>
+
+## Labwork using ABI Function Calls
+
+<details>
+<summary> Algorithm for C Program using ASM </summary>
+	
 - Incorporating assembly language code into a C program can be done using inline assembly or by linking separate assembly files with your C code.
 - When you call an assembly function from your C code, the C calling convention is followed, including pushing arguments onto the stack or passing them in registers as required.
 - The program executes the assembly function, following the assembly instructions you've provided.
 
-## Review ASM Function Calls
+</details>
+
+<details>
+<summary> Review ASM Function Calls </summary>
+	
 - We wrote C code in one file and your assembly code in a separate file.
 - In the assembly file, we declared assembly functions with appropriate signatures that match the calling conventions of your platform.
 
@@ -330,15 +430,42 @@ blt a3, a2, loop
 add a0, a4, zero
 ret
 ```
-## Simulate C Program using Function Call
-**Compilation:** To compile C code and Asseembly file use the command
+</details>
+
+<details>
+<summary> Simulate C Program using Function Call </summary>
+	
++ **Compilation:** To compile C code and Asseembly file use the command
 
 `riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o custom1to9.o custom1to9.c load.s` 
 
 this would generate object file `custom1to9.o`.
 
-**Execution:** To execute the object file run the command 
++ **Execution:** To execute the object file run the command 
 
 `spike pk custom1to9.o`
 
 ![Screenshot from 2023-08-20 20-29-14](https://github.com/Syedhasan7/pes_asic_class/assets/109273742/c32f4af0-c473-4d59-8d4a-8e7ad4bf3f41)
+
+
+</details>
+
+<details>
+<summary> Lab to Run C-Program on RICV-CPU </summary>
+
+
++ `git clone https://github.com/kunalg123/riscv_workshop_collaterals.git`
+
++ `cd riscv_workshop_collaterals`
+
++ `ls -ltr`
+
++ `cd labs`
+
++ `ls -ltr`
+
++ `chmod 777 rv32im.sh`
+
++ `./rv32im.sh`
+
+</details>

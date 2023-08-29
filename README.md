@@ -767,7 +767,7 @@ It gives a report of what cells are used and the number of input and output sign
 + Since there are 5 inputs, for all the 32 possible combinations, it gives the delay, power and all the other parameters for each cell.
 + The below image shows the power consumption and area comparision.
   
-<img width="911" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/2a6b20a3-33d1-47e0-814f-6cff100ec2a7">
+![Screenshot from 2023-08-28 14-40-20](https://github.com/Syedhasan7/pes_asic_class/assets/109273742/d3052923-6a3b-4197-b082-63acecb7f406)
 
 </details>
 
@@ -783,7 +783,7 @@ It gives a report of what cells are used and the number of input and output sign
   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
   -  `gvim multiple_modules.v`
 
-<img width="321" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/384b4475-a6e7-4905-9a70-cfdff657e6db">
+![Screenshot from 2023-08-28 14-42-30](https://github.com/Syedhasan7/pes_asic_class/assets/109273742/16c4674f-e38f-483e-975a-6439ddc88579)
 
 +  `multiple_modules` instantiates `sub_module1` and `sub_module2`
 
@@ -792,7 +792,8 @@ It gives a report of what cells are used and the number of input and output sign
 +  read the verilog file ` read_verilog multiple_modules.v`
 +  `synth -top multiple_modules` to set it as top module
 
-  <img width="380" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/a69395c3-1e50-49cc-b356-6afe8b1f9c5e">
+  ![image](https://github.com/Syedhasan7/pes_asic_class/assets/109273742/66adc026-3207-4f19-91b1-baafa9ef3a58)
+
   <img width="219" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/7163c184-566d-4568-abff-fcda8f6c9f63">
   
 +  `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
@@ -891,10 +892,9 @@ It gives a report of what cells are used and the number of input and output sign
   - `iverilog dff_asyncres.v tb_dff_asyncres.v`
   - `./a.out`
   - `gtkwave tb_dff_asyncres.vcd`
-  
-<img width="549" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/c114ede9-357a-4d75-9f4a-dea6fd71f1ce">
 
-<img width="500" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/326bf88d-74d9-407f-8c45-1e1e28ea1911">
+   ![Screenshot from 2023-08-28 15-14-11](https://github.com/Syedhasan7/pes_asic_class/assets/109273742/3e57b5fd-c989-4735-871f-6839a26383d3)
+
 
 + **Synthesis**
   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
@@ -915,10 +915,9 @@ It gives a report of what cells are used and the number of input and output sign
    - `./a.out`
    - `gtkwave tb_dff_async_set.vcd`
 
-<img width="551" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/3d0eebd4-1d03-4bdb-9f76-4907b8b87ac3">
 
+![Screenshot from 2023-08-28 15-20-36](https://github.com/Syedhasan7/pes_asic_class/assets/109273742/7566488c-8766-4e77-a9e6-9808efc03cbe)
 
-<img width="500" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/51dd2cf5-ea6c-4b00-bf2a-5ae8674e2272">
 
 + **Synthesis**
   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
@@ -938,10 +937,7 @@ It gives a report of what cells are used and the number of input and output sign
    - `iverilog dff_syncres.v tb_dff_syncres.v`
    - `./a.out`
    - `gtkwave tb_dff_syncres.vcd`
- 
-     
-   <img width="542" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/bd4493f9-da25-45ce-b9a6-660944032e75">
-   
+    
 
   <img width="500" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/472e9a2d-bb95-437d-b790-cfe72294ad07">
   
@@ -1004,4 +1000,334 @@ It gives a report of what cells are used and the number of input and output sign
 <img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/37c89aea-497d-4e0d-99c5-c46dffd63b7d">
 
 </details>
+
+# Day 5
+## Introduction to Optimisations 
+
+<details>
+<summary> Combinational Optimisation </summary>
+	
++ Combinational logic refers to logic circuits where the outputs depend only on the current inputs and not on any previous states.
++ Combinational optimization is a field of study in computer science and operations research that focuses on finding the best possible solution from a finite set of options for problems that involve discrete variables and have no inherent notion of time.
++ Optimising the combinational logic circuit is squeezing the logic to get the most optimized digital design so that the circuit finally is area and power efficient.
++ Techniques for Optimisations:
+  - **Constant propagation** is an optimization technique used in compiler design and digital circuit synthesis to improve the efficiency of code and circuit implementations by replacing variables or expressions with their constant values where applicable.
+  - **Boolean logic optimization**, also known as logic minimization or Boolean function simplification, is a process in digital design that aims to simplify Boolean expressions or logic circuits by reducing the number of terms, literals, and gates required to implement a given logical function.
+
+</details>
+
+<details>
+<summary> Sequential Logic Optimisations </summary>	
+
++ Sequential logic optimizations involve improving the efficiency, performance, and resource utilization of digital circuits that include memory elements like flip-flops and latches.
++ Optimizing sequential logic is crucial in ensuring that digital circuits meet timing requirements, consume minimal power, and occupy the least possible area while maintaining correct functionality.
++ Optimisation methods:
+  - **Sequential constant propagation**, also known as constant propagation across sequential elements, is an optimization technique used in digital design to identify and propagate constant values through sequential logic elements like flip-flops and registers. This technique aims to replace variable values with their known constant values at various stages of the logic circuit, optimizing the design for better performance and resource utilization.
+  - **State optimization**, also known as state minimization or state reduction, is an optimization technique used in digital design to reduce the number of states in finite state machines (FSMs) while preserving the original functionality.
+  - **Sequential logic cloning**, also known as retiming-based cloning or register cloning, is a technique used in digital design to improve the performance of a circuit by duplicating or cloning existing registers (flip-flops) and introducing additional pipeline stages. This technique aims to balance the critical paths within a circuit and reduce its overall clock period, leading to improved timing performance and better overall efficiency.
+  - **Retiming** is an optimization technique used in digital design to improve the performance of a circuit by repositioning registers (flip-flops) along its paths to balance the timing and reduce the critical path delay. The primary goal of retiming is to achieve a shorter clock period without changing the functionality of the circuit.
+ 
+</details>
+
+## Combinational Logic Optimisations
+
+<details>
+<summary> opt_check </summary>	
+	
++ `gvim opt_check.v`
+
+  <img width="500" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/dad0961e-10d4-4a0c-9991-0ad6daea169f">
+
++ `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `read_verilog opt_check.v`
++ `synth -top opt_check`
++ `opt_clean -purge`
++ `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `show`
+
+  <img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/44d6a65e-1405-49b6-a569-66a7c976308c">
+
+  <img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/8861528b-55be-45e4-952e-c0600c811685">
+
+</details>
+
+<details>
+<summary> opt_check2 </summary>	
+	
++ `gvim opt_check2.v`
+
+  <img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/d957a7b5-fb8a-4e59-a9d3-cb1730a7dd25">
+  
++ `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `read_verilog opt_check2.v`
++ `synth -top opt_check2`
++ `opt_clean -purge`
++ `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `show`
+
+<img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/c85299a9-10df-4b40-8f0f-f19ead681ad3">
+
+<img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/d0b4fb18-71ff-4aa6-92b9-49eac8dd889b">
+
+</details>
+
+<details>
+<summary> opt_check3 </summary>	
+	
++ `gvim opt_check3.v`
+
+<img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/3183db65-f77d-443a-9814-dc776c3c0990">
+
++ `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `read_verilog opt_check3.v`
++ `synth -top opt_check3`
++ `opt_clean -purge`
++ `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `show`
+
+<img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/13709061-55c2-43ca-b798-c8398e1c7fdb">
+
+<img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/2c885b4d-c274-4bae-abd0-15853f864f62">
+
+</details>
+
+<details>
+<summary> opt_check4 </summary>
+	
++ `gvim opt_check4.v`
+
+ <img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/75c65195-8f6b-416e-8074-306a46263746">
+
++ `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `read_verilog opt_check4.v`
++ `synth -top opt_check4`
++ `opt_clean -purge`
++ `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `show`
+
+<img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/a1acd352-c271-4330-9fd8-6aafe72b8f11">
+
+<img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/498cf442-ec8e-468e-a310-d1f93b93ce1a">
+
+</details>
+
+<details>
+<summary> multiple_module_opt </summary>
+	
++ `gvim multiple_module_opt.v`
+
+ <img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/ad570bd8-44b5-4408-8715-02f1c5d15a29">
+
++ `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `read_verilog multiple_module_opt.v`
++ `synth -top multiple_module_opt`
++ `opt_clean -purge`
++ `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `show`
+ 
+<img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/4c3fd4bc-c599-41cf-af42-c07280dcca11">
+
+<img width="400" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/1344d22d-51f5-439e-bc34-96b2a742474e">
+
+</details>
+
+## Sequential Logic Optimisations
+
+<details>
+<summary> dff_const1 </summary>	
+
++ `gvim dff_const1.v`
+
+<img width="331" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/abec2938-5f2c-4cd5-b369-103c1b09f098">
+
+**Simulation**
+
++ `iverilog dff_const1.v tb_dff_const1.v`
++ `/a.out`
++ `gtkwave tb_dff_const1.vcd`
+
+![Screenshot from 2023-08-29 07-46-04](https://github.com/Syedhasan7/pes_asic_class/assets/109273742/3b769f02-538a-43be-8494-baec0f3de3fc)
+
+
+
+**Synthesis**
+
++ `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `read_verilog dff_const1.v`
++ `synth -top dff_const1`
++ `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib `
++ `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `show`
+
+<img width="194" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/c542c8b4-3624-4a22-92c5-35a4b1458c35">
+
+<img width="925" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/fa1d8b2f-431e-4836-8a75-8c2bd3ce326e">
+
+</details>
+
+<details>
+<summary> dff_const2 </summary>	
+
++ `gvim dff_const2.v`
+
+<img width="355" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/e0e6e4da-0429-49db-b687-d99ab365ed17">
+
+**Simulation**
+
++  `iverilog dff_const2.v tb_dff_const2.v`
++ `/a.out`
++ `gtkwave tb_dff_const2.vcd`
+
+![Screenshot from 2023-08-29 07-47-58](https://github.com/Syedhasan7/pes_asic_class/assets/109273742/2b44fdd4-639c-4e26-9748-52d0d2b7fbfa)
+
+
+ **Synthesis**
+ 
++ `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `read_verilog dff_const2.v`
++ `synth -top dff_const2`
++ `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib `
++ `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `show`
+
+ <img width="206" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/d4859923-36a2-4cf2-bcef-6befaf718913">
+
+<img width="305" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/8e3503dd-d315-426f-9a3e-bd487014600a">
+
+</details>
+
+<details>
+<summary> dff_const3 </summary>
+
++ `gvim dff_const3.v`
+
+ <img width="272" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/3ce28559-0063-4ef1-9d7e-a3af839dd7e3">
+
+**Simulation**
+
++ `iverilog dff_const3.v tb_dff_const3.v`
++ `/a.out`
++ `gtkwave tb_dff_const3.vcd`
+
+![Screenshot from 2023-08-29 07-59-49](https://github.com/Syedhasan7/pes_asic_class/assets/109273742/3dd0c679-f6aa-4ec5-9fc3-c7b6fa15869f)
+
+**Synthesis**
+
++ `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `read_verilog dff_const3.v`
++ `synth -top dff_const3`
++ `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib `
++ `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `show`
+
+<img width="197" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/7cc2308b-b988-4ba9-965f-06abf2472e2b">
+
+<img width="922" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/bdea6f33-d357-47f4-a9fd-cc655dcce869">
+
+</details>
+
+<details>
+<summary> dff_const4 </summary>	
+
++ `gvim dff_const4.v`
+
+<img width="311" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/bc5661c4-50c6-4ccf-8aab-a5ace3ccfa14">
+
+**Simulation**
+
++ `iverilog dff_const4.v tb_dff_const4.v`
++ `/a.out`
++ `gtkwave tb_dff_const4.vcd`
+
+![Screenshot from 2023-08-29 08-03-49](https://github.com/Syedhasan7/pes_asic_class/assets/109273742/5b5c1af3-296e-4e10-9a64-9b9db0f1ac9a)
+
+
+**Synthesis**
+
++ `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `read_verilog dff_const4.v`
++ `synth -top dff_const4`
++ `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib `
++ `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `show`
+
+<img width="193" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/a152102c-a880-499d-98e6-f2d26201ea85">
+
+<img width="306" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/4d4d33fc-11ec-4cb5-867d-2f34d892255a">
+
+</details>
+
+<details>
+<summary> dff_const5 </summary>	
+
++ `gvim dff_const5.v`
+
+<img width="251" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/af7acfca-6fb0-4b62-bb1e-d32746d0c07e">
+
+**Simulation**
+
++ `iverilog dff_const4.v tb_dff_const4.v`
++ `/a.out`
++ `gtkwave tb_dff_const5.vcd`
+
+![Screenshot from 2023-08-29 08-04-18](https://github.com/Syedhasan7/pes_asic_class/assets/109273742/25896811-d283-4a4b-bb82-7805317fb75a)
+
+
+**Synthesis**
+
++ `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `read_verilog dff_const4.v`
++ `synth -top dff_const4`
++ `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib `
++ `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `show`
+
+ <img width="205" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/e2719af7-b746-4830-b04f-87df97143f86">
+
+<img width="923" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/8d95c49d-9fd9-4d76-bba1-b893c6f163fc">
+
+</details>
+
+## Sequential Optimisations for Unused Outputs
+<details>
+<summary> counter_opt </summary>
+
+ + `gvim counter_opt.v`
+
+<img width="349" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/cb5798fa-2ee9-4cf0-9372-3da9ff17bd66">
+
++ `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `read_verilog counter_opt.v`
++ `synth -top counter_opt`
++ `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `show`
+
+<img width="184" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/1c876b33-9d26-4efe-95cf-5d0814415da5">
+
+<img width="923" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/b65d5ac8-3961-4a7b-9e8a-18bc0229f104">
+
+</details>
+
+<details>
+<summary> counter_opt2 </summary>	
+
++ `gvim counter_opt2.v`
+
+ <img width="347" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/b6262d9a-5892-4360-91fa-18f7e2aa39e7">
+
++ `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `read_verilog counter_opt2.v`
++ `synth -top counter_opt2`
++ `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `show`
+
+ <img width="200" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/14aadea7-9607-40a8-b5ed-e48eb255cd10">
+
+<img width="923" alt="image" src="https://github.com/Veda1809/pes_asic_class/assets/142098395/78af2250-6ee8-4d94-b91b-138cb2877b1e">
+
+</details>
+
+
 
